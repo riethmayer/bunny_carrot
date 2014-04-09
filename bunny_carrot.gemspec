@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -7,12 +8,14 @@ require "bunny_carrot/version"
 Gem::Specification.new do |s|
   s.name        = "bunny_carrot"
   s.version     = BunnyCarrot::VERSION
-  s.authors     = ["Pairing Andrzej Śliwa + Vladimir Zhukov"]
+  s.authors     = ["Paired by Andrzej Śliwa + Vladimir Zhukov, bonusbox GmbH"]
   s.email       = ["andrzej.sliwa@i-tool.eu, voldyjeengle@gmail.com"]
   s.homepage    = "https://github.com/bonusboxme/bunny_carrot"
-  s.summary     = "BunnyCarrot is a carrot for rabbit Bunny."
-  s.description = "BunnyCarrot is a carrot for rabbit Bunny."
-
+  s.summary     = "The carrot for bunny. A rabbitmq-consumer."
+  s.description = <<-STR
+BunnyCarrot is a worker implementation using the rabbitmq-client bunny.
+Based on actor-models it allows concurrent and supervised consumer-strategies.
+STR
   s.files       = `git ls-files`.split($/)
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})

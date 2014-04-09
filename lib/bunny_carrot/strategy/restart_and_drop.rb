@@ -4,7 +4,7 @@ module BunnyCarrot
       def perform
         super
         unless restart_attempts_left?
-          logger.info 'No restart attempts left, dropping message...'
+          logger.info 'No attempts left to restart, dropping message...'
           acknowledge
         end
       end

@@ -25,7 +25,8 @@ module BunnyCarrot
     private
 
     def channel
-      @channel ||= RabbitHole.get_subscribe_channel.tap { |c| c.prefetch(@pool_size); logger.info 'Ready to consume!' }
+      @channel ||= RabbitHole.get_subscribe_channel.tap { |c|
+        c.prefetch(@pool_size); logger.info 'Ready to consume!' }
     end
   end
 end

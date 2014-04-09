@@ -9,7 +9,6 @@ module BunnyCarrot
       root_supervisor.add_worker(queue_supervisor)
       root_supervisor.add_worker(business_pool_supervisor)
 
-
       business_actor, business_pool = BusinessActor.pool(pool_size)
       business_pool.each do |actor|
         actor.add_observer(BusinessActorObserver)
@@ -24,7 +23,7 @@ module BunnyCarrot
         sleep(0.1)
       end
 
-      logger.info 'Starting consuming...'
+      logger.info 'Start consuming...'
 
       consumer_actor.post(queue_name, worker)
       loop { sleep(1) } if block
