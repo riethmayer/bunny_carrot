@@ -17,14 +17,15 @@ BunnyCarrot is a worker implementation using the rabbitmq-client bunny.
 Based on actor-models it allows concurrent and supervised consumer-strategies.
 STR
   s.files       = `git ls-files`.split($/)
+  s.license     = "MIT"
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.add_dependency "concurrent-ruby", "~> 0.5.0"
-  s.add_dependency "hamster", "~> 0.4.3"
-  s.add_dependency "bunny", "~> 0.10.8"
-  s.add_development_dependency "bundler"
-  s.add_development_dependency "rake"
-  s.add_development_dependency "rspec"
+  s.add_dependency "concurrent-ruby", "~> 0.5"
+  s.add_dependency "hamster", "~> 0.4", ">= 0.4.3"
+  s.add_dependency "bunny", "~> 0.10", ">= 0.10.8"
+  s.add_development_dependency "bundler", "~> 1.5"
+  s.add_development_dependency "rake", "~> 10.2"
+  s.add_development_dependency "rspec", "~> 2.14"
 end
