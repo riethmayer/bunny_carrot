@@ -29,7 +29,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
+  bundler (~> 1.5)
   bunny_carrot!
-  rake
-  rspec
+  rake (~> 10.2)
+  rspec (~> 2.14)
