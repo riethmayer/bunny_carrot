@@ -2,13 +2,6 @@ module BunnyCarrot
   class BaseWorker
     include BunnyCarrot::Logger
 
-    STRATEGY_MAP = {
-        block:             Strategy::Block,
-        drop:              Strategy::Drop,
-        restart_and_block: Strategy::RestartAndBlock,
-        restart_and_drop:  Strategy::RestartAndDrop
-    }
-
     def self.error_handling_strategies(hash)
       raise 'Invalid strategies hash' unless hash.kind_of? Hash
       @@strategies = hash
@@ -22,18 +15,9 @@ module BunnyCarrot
       perform(payload, headers)
     end
 
-    def strategy(args)
-      exception = args.fetch(:exception)
-      strategy, restart_count = Array(@@strategies[exception.class])
-      strategy ||= default_strategy
-      klass  = STRATEGY_MAP[strategy]
-      klass.nil? ? raise("Undefined queue strategy #{strategy}") : logger.info("Applying #{klass}")
-      hash = args.merge(Hamster.hash(restart_count: restart_count))
-      klass.new(hash)
-    end
-
-    def default_strategy
-      :block
+    def strategy(message_attrs)
+      hash = Hamster.hash(mapping: @@strategies, message_attrs: message_attrs)
+      ExceptionStrategy.get(hash)
     end
 
     protected

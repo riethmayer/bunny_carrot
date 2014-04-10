@@ -18,7 +18,7 @@ module BunnyCarrot
         worker        = message.fetch(:worker)
         logger.info 'Defining exception handling strategy...'
         strategy = worker.strategy(message_attrs)
-        strategy.run
+        strategy.perform
       end
     end
   end

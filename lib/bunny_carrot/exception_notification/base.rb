@@ -11,8 +11,6 @@ module BunnyCarrot
         @exception  = args.fetch(:exception)
       end
 
-
-
       def message
         "queue: #{@queue_name}, payload: #{@payload}"
       end
