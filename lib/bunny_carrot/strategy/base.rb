@@ -8,8 +8,10 @@ module BunnyCarrot
         @payload          = args.fetch(:payload)
         @headers          = args.fetch(:message_headers)
         @acknowledge_proc = args.fetch(:acknowledge_proc)
-        @notify           = args.fetch(:notify, default_notify)
+        @exception        = args.fetch(:exception)
+        @notify           = args[:notify] || default_notify
         post_initialize(args)
+        logger.info "#{self.class.name} initialized"
       end
 
       def perform
@@ -52,7 +54,13 @@ module BunnyCarrot
       end
 
       def notify
-        BunnyCarrot::ExceptionNotifier.call(args) if notify?
+        if notify?
+          logger.info 'Notifying about exception...'
+          hash = Hamster.hash(queue_name: @queue_name,
+                              exception:  @exception,
+                              payload:    @payload)
+          BunnyCarrot::ExceptionNotifier.call(hash)
+        end
       end
 
       def notify?

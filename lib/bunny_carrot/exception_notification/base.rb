@@ -1,6 +1,8 @@
 module BunnyCarrot
   module ExceptionNotification
     class Base
+      include BunnyCarrot::Logger
+
       def self.notify(args)
         new(args).notify
       end
@@ -9,6 +11,10 @@ module BunnyCarrot
         @queue_name = args.fetch(:queue_name)
         @payload    = args.fetch(:payload)
         @exception  = args.fetch(:exception)
+      end
+
+      def notify
+        rails NotImplementedError
       end
 
       def message

@@ -26,7 +26,7 @@ module BunnyCarrot
 
     def get
       hash = @message_attrs.merge(Hamster.hash(restart_count: @restart_count))
-      strategy_class.new(hash)
+      @strategy_class.new(hash)
     end
 
     def default_strategy
