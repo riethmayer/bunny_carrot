@@ -15,7 +15,7 @@ module BunnyCarrot
                           heartbeat_interval: 5, automatically_recover: true,
                           keepalive:          true)
       @rabbit.start
-      logger.info 'Rabbit actor initialized'
+      logger.info 'Rabbit hole initialized'
     end
 
     def get_channel
