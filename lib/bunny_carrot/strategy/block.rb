@@ -3,7 +3,7 @@ module BunnyCarrot
     class Block < Base
       def perform
         logger.info 'Blocking queue...'
-        # Do nothing, block queue
+        block
       end
     end
   end

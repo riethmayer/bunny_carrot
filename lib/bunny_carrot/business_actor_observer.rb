@@ -13,11 +13,12 @@ module BunnyCarrot
         message_attrs = Hamster.hash({ queue_name:       message.fetch(:queue_name),
                                        payload:          message.fetch(:payload),
                                        message_headers:  message.fetch(:message_headers),
-                                       acknowledge_proc: message.fetch(:acknowledge_proc) })
+                                       acknowledge_proc: message.fetch(:acknowledge_proc),
+                                       exception:        exception })
         worker        = message.fetch(:worker)
         logger.info 'Defining exception handling strategy...'
-        strategy = worker.strategy(message_attrs, exception)
-        strategy.perform
+        strategy = worker.strategy(message_attrs)
+        strategy.run
       end
     end
   end

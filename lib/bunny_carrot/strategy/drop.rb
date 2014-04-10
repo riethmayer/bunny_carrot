@@ -3,7 +3,11 @@ module BunnyCarrot
     class Drop < Base
       def perform
         logger.info 'Dropping message...'
-        acknowledge
+        drop
+      end
+
+      def default_notify
+        false
       end
     end
   end

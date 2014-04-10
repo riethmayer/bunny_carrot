@@ -22,12 +22,13 @@ module BunnyCarrot
       perform(payload, headers)
     end
 
-    def strategy(message, exception)
+    def strategy(args)
+      exception = args.fetch(:exception)
       strategy, restart_count = Array(@@strategies[exception.class])
-      strategy                ||= default_strategy
-      klass                   = STRATEGY_MAP[strategy]
+      strategy ||= default_strategy
+      klass  = STRATEGY_MAP[strategy]
       klass.nil? ? raise("Undefined queue strategy #{strategy}") : logger.info("Applying #{klass}")
-      hash = message.merge(Hamster.hash(restart_count: restart_count))
+      hash = args.merge(Hamster.hash(restart_count: restart_count))
       klass.new(hash)
     end
 

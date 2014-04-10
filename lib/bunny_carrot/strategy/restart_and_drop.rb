@@ -1,11 +1,12 @@
 module BunnyCarrot
   module Strategy
-    class RestartAndDrop < RestartAndBlock
+    class RestartAndDrop < RestartBase
       def perform
-        super
-        unless restart_attempts_left?
+        if restart_attempts_left?
+          restart
+        else
           logger.info 'No attempts left to restart, dropping message...'
-          acknowledge
+          drop
         end
       end
     end

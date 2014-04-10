@@ -8,6 +8,7 @@ module BunnyCarrot
         @payload          = args.fetch(:payload)
         @headers          = args.fetch(:message_headers)
         @acknowledge_proc = args.fetch(:acknowledge_proc)
+        @notify           = args.fetch(:notify, default_notify)
         post_initialize(args)
       end
 
@@ -18,6 +19,20 @@ module BunnyCarrot
       protected
 
       def post_initialize(args)
+      end
+
+      def default_notify
+        true
+      end
+
+      def drop
+        acknowledge
+        notify
+      end
+
+      def block
+        # Doing nothing, blocking queue
+        notify
       end
 
       private
@@ -34,6 +49,14 @@ module BunnyCarrot
 
       def headers
         @headers
+      end
+
+      def notify
+        BunnyCarrot::ExceptionNotifier.call(args) if notify?
+      end
+
+      def notify?
+        @notify
       end
     end
   end
