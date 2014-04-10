@@ -18,7 +18,7 @@ module BunnyCarrot
       end
 
       def message
-        "queue: #{@queue_name}, payload: #{@payload}"
+        "#{@exception.message}, queue: #{@queue_name}, payload: #{@payload}"
       end
 
       def notify?
