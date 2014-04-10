@@ -6,13 +6,13 @@ require 'bunny_carrot/logger'
 require 'bunny_carrot/exception_notification/base'
 require 'bunny_carrot/exception_notification/airbrake'
 require 'bunny_carrot/exception_notifier'
-require 'bunny_carrot/exception_strategy'
 require 'bunny_carrot/strategy/base'
 require 'bunny_carrot/strategy/restart_base'
 require 'bunny_carrot/strategy/block'
 require 'bunny_carrot/strategy/drop'
 require 'bunny_carrot/strategy/restart_and_block'
 require 'bunny_carrot/strategy/restart_and_drop'
+require 'bunny_carrot/exception_strategy'
 require 'bunny_carrot/rabbit_hole'
 require 'bunny_carrot/logging_actor'
 require 'bunny_carrot/business_actor'
@@ -36,6 +36,6 @@ module BunnyCarrot
   end
 
   def self.logger
-    @logger ||= Logger.new($stdout)
+    @logger ||= ::Logger.new($stdout)
   end
 end

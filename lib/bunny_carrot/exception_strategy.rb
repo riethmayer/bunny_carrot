@@ -1,5 +1,6 @@
 module BunnyCarrot
   class ExceptionStrategy
+    include BunnyCarrot::Logger
 
     TYPES = {
         block:             Strategy::Block,

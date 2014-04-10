@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bunny_carrot (0.0.3)
+    bunny_carrot (0.0.4)
       bunny (~> 0.10, >= 0.10.8)
       concurrent-ruby (~> 0.5)
       hamster (~> 0.4, >= 0.4.3)
