@@ -2,7 +2,8 @@ module BunnyCarrot
   class Consumer
     include BunnyCarrot::Logger
 
-    def self.subscribe(queue_name, worker, pool_size: 1, block: false)
+    def self.subscribe(queue_name, worker, pool_size: 1, block: false,
+                       exchange: nil, routing_key: nil)
       root_supervisor          = Concurrent::Supervisor.new
       queue_supervisor         = Concurrent::Supervisor.new(restart_strategy: :one_for_all)
       business_pool_supervisor = Concurrent::Supervisor.new
@@ -25,7 +26,7 @@ module BunnyCarrot
 
       logger.info 'Start consuming...'
 
-      consumer_actor.post(queue_name, worker)
+      consumer_actor.post(queue_name, worker, exchange, routing_key)
       loop { sleep(1) } if block
     end
   end

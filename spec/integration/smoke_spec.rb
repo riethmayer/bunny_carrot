@@ -17,4 +17,10 @@ describe "bunny carrot" do
     output = `bundle exec ruby spec/fixtures/producer_and_consumer.rb #{queue} #{message}`
     expect(output).to eq message
   end
+
+  it "allows to have topic producer and consumer in one process" do
+    output = `bundle exec ruby spec/fixtures/topic_producer_and_consumer.rb topic_exchange #{queue} #{message}`
+    expect(output).to eq message
+  end
+
 end

@@ -24,5 +24,3 @@ begin
   end
 rescue Timeout::Error
 end
-
-
