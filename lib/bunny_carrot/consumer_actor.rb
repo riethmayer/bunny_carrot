@@ -12,7 +12,7 @@ module BunnyCarrot
       logger.info "Consumer is acting..."
       queue = channel.queue(queue_name, durable: true)
       queue.bind(exchange_name, routing_key: routing_key) if exchange_name
-      queue.subscribe(block: true, ack: true) do |delivery_info, properties, payload|
+      queue.subscribe(block: false, ack: true) do |delivery_info, properties, payload|
         acknowledge_proc = lambda { channel.ack(delivery_info.delivery_tag) }
         message_hash     = Hamster.hash({ queue_name:       queue_name,
                                           payload:          JSON.parse(payload),

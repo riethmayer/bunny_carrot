@@ -1,13 +1,16 @@
+require 'singleton'
+
 module BunnyCarrot
   class RabbitHole
     include BunnyCarrot::Logger
+    include Singleton
 
     def self.get_subscribe_channel
-      @@subscribe_channel ||= new.get_channel
+      instance.get_channel
     end
 
     def self.get_publish_channel
-      @@publish_channel ||= new.get_channel
+      @@publish_channel ||= instance.get_channel
     end
 
     def initialize
@@ -28,11 +31,11 @@ module BunnyCarrot
       headers    = args.fetch(:headers, {})
       custom_exchange = args.fetch(:exchange, nil)
 
-      get_publish_channel.queue(queue_name, durable: true)
+      get_publish_channel.queue(queue_name, durable: true) unless custom_exchange
       exchange(custom_exchange).publish(payload,
-                       durable: true,
-                       routing_key: queue_name,
-                       headers:     headers)
+                                        durable: true,
+                                        routing_key: queue_name,
+                                        headers:     headers)
     end
 
     def self.exchange(custom_exchange_params)
