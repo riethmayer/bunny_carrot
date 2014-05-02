@@ -31,11 +31,15 @@ BunnyCarrot::RabbitHole.exchange(name: EXCHANGE_NAME,
 
 # sleep 4
 
-BunnyCarrot::Consumer.subscribe(QUEUE_NAME + '1', LoudBusinessWorker.new, block: false, exchange: EXCHANGE_NAME, routing_key: '#')
+consumer = BunnyCarrot::Consumer.new
+
+sleep 5
+
+consumer.subscribe(QUEUE_NAME + '1', LoudBusinessWorker.new, block: false, exchange: EXCHANGE_NAME, routing_key: '#')
 
 # sleep 4
 
-BunnyCarrot::Consumer.subscribe(QUEUE_NAME + '2', BusinessWorker.new, block: false, exchange: EXCHANGE_NAME, routing_key: '#')
+consumer.subscribe(QUEUE_NAME + '2', BusinessWorker.new, block: false, exchange: EXCHANGE_NAME, routing_key: '#')
 
 sleep 1
 
