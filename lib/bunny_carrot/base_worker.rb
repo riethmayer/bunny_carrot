@@ -4,11 +4,11 @@ module BunnyCarrot
 
     def self.error_handling_strategies(hash)
       raise 'Invalid strategies hash' unless hash.kind_of? Hash
-      @@strategies = hash
+      @strategies = hash
     end
 
     def initialize
-      @@strategies ||= {}
+      @strategies = strategies || {}
     end
 
     def run(payload, headers)
@@ -24,6 +24,10 @@ module BunnyCarrot
 
     def perform(payload, headers)
       raise NotImplememtedError
+    end
+
+    def strategies
+      self.class.instance_eval { @strategies }
     end
   end
 end
