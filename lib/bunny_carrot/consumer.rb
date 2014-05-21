@@ -3,8 +3,8 @@ module BunnyCarrot
     include BunnyCarrot::Logger
 
     def self.subscribe(queue_name, worker, pool_size: 1, **args)
-      @@consumer ||= self.new(pool_size: pool_size)
-      @@consumer.subscribe(queue_name, worker, **args)
+      consumer = self.new(pool_size: pool_size)
+      consumer.subscribe(queue_name, worker, **args)
     end
 
     def initialize(pool_size: 1)
