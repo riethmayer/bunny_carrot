@@ -15,7 +15,7 @@ module BunnyCarrot
 
     def initialize
       @rabbit = Bunny.new(BunnyCarrot.server_url,
-                          heartbeat_interval: 5, automatically_recover: true,
+                          heartbeat_interval: 10, automatically_recover: true,
                           keepalive:          true)
       @rabbit.start
       logger.info 'Rabbit hole initialized'
