@@ -8,7 +8,7 @@ module BunnyCarrot
     end
 
     def initialize(pool_size: 1)
-      @supervisor         = Concurrent::Supervisor.new
+      @supervisor  = Concurrent::Supervisor.new(restart_strategy: :one_for_all)
 
       business_actor, business_pool = BusinessActor.pool(pool_size)
       business_pool.each do |actor|
